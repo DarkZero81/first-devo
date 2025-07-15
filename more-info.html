@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جامعتنا - الأقسام الأكاديمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="more-infoooo.css">
+    <style>
+        :root {
+            --primary-color: #0044ff;
+            --secondary-color: #ffa30f;
+            --background-color: #ffd900;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 20%);
+        }
+
+        .new-header {
+            background-color: var(--secondary-color);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .university-name {
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .university-name i {
+            font-size: 32px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-button:nth-child(1) {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .nav-button:nth-child(2) {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .nav-button:nth-child(3) {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        main {
+            padding: 2% 5%;
+        }
+
+        .departments-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .department-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .department-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .department-header {
+            background: linear-gradient(135deg, var(--primary-color), #0066ff);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .department-icon {
+            font-size: 28px;
+        }
+
+        .department-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        .department-card.active .department-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: rgba(0, 68, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .content-nav-button {
+            padding: 8px 15px;
+            background-color: var(--white);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .content-nav-button:hover,
+        .content-nav-button.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 68, 255, 0.05);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 163, 0, 0.1);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary-color);
+            top: -100px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--secondary-color);
+            bottom: -50px;
+            right: -50px;
+        }
+
+        @media (max-width: 768px) {
+            .new-header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .university-name {
+                margin-bottom: 15px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .nav-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .departments-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <header class="new-header">
+        <div class="university-name">
+            <i class="fas fa-university"></i>
+            <span>جامعة الاتحاد الخاصة</span>
+        </div>
+        <div class="nav-buttons">
+            <a href="in.html" class="nav-button">
+                <i class="fas fa-home"></i>
+                الصفحة الرئيسية
+            </a>
+            <a href="departments.html" class="nav-button">
+                <i class="fas fa-building"></i>
+                الأقسام
+            </a>
+            <a href="#" class="nav-button">
+                <i class="fas fa-ellipsis-h"></i>
+                المزيد
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <h1 style="text-align: center; margin-bottom: 30px;"><i class="fas fa-graduation-cap"></i> الأقسام الأكاديمية
+        </h1>
+
+        <div class="departments-container">
+            <!-- قسم الصيدلة -->
+            <div class="department-card" onclick="toggleDepartment('pharmacy')">
+                <div class="department-header">
+                    <i class="fas fa-prescription-bottle-alt department-icon"></i>
+                    <span>كلية الصيدلة</span>
+                </div>
+                <div class="department-content" id="pharmacy-content">
+                    <div class="content-nav">
+                        <div class="content-nav-button active" onclick="showContent(event, 'pharmacy-plan')">الخطة
+                            الدراسية</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'pharmacy-about')">نبذة عن الكلية
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'pharmacy-council')">مجلس الكلية
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'pharmacy-goals')">أهداف الكلية
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'pharmacy-admission')">أسس القبول
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'pharmacy-curriculum')">المقرر
+                            العلمي</div>
+                    </div>
+
+                    <div class="content-section active" id="pharmacy-plan">
+                        <h2><i class="fas fa-calendar-alt"></i> الخطة الدراسية لكلية الصيدلة</h2>
+                        <p>تمتد الدراسة في كلية الصيدلة لمدة خمس سنوات مقسمة على عشرة فصول دراسية. تشمل الخطة الدراسية
+                            المواد التالية:</p>
+                        <ul>
+                            <li>الكيمياء الصيدلانية</li>
+                            <li>علم الأدوية والعلاجات</li>
+                            <li>الصيدلة السريرية</li>
+                            <li>التكنولوجيا الصيدلانية</li>
+                            <li>الكيمياء التحليلية</li>
+                        </ul>
+                        <p>يشمل البرنامج أيضاً تدريباً عملياً في الصيدليات والمستشفيات خلال السنة الأخيرة.</p>
+                    </div>
+
+                    <div class="content-section" id="pharmacy-about">
+                        <h2><i class="fas fa-info-circle"></i> نبذة عن كلية الصيدلة</h2>
+                        <p>تأسست كلية الصيدلة عام 1995 بهدف إعداد صيادلة مؤهلين علمياً وعملياً لتلبية احتياجات سوق
+                            العمل. تضم الكلية نخبة من الأساتذة المتخصصين في مختلف مجالات الصيدلة.</p>
+                        <p>تمتلك الكلية مختبرات حديثة مجهزة بأحدث الأجهزة العلمية، وتتعاون مع العديد من المستشفيات
+                            والمراكز البحثية لتوفير تدريب عملي متميز للطلاب.</p>
+                    </div>
+
+                    <div class="content-section" id="pharmacy-council">
+                        <h2><i class="fas fa-users"></i> مجلس كلية الصيدلة</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>المنصب</th>
+                                    <th>التخصص</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>أ.د. علي محمد حسن</td>
+                                    <td>عميد الكلية</td>
+                                    <td>الكيمياء الصيدلانية</td>
+                                </tr>
+                                <tr>
+                                    <td>د. سامية عبد الرحيم</td>
+                                    <td>نائب العميد</td>
+                                    <td>علم الأدوية</td>
+                                </tr>
+                                <tr>
+                                    <td>د. خالد مصطفى</td>
+                                    <td>عضو</td>
+                                    <td>الصيدلة السريرية</td>
+                                </tr>
+                                <tr>
+                                    <td>د. هدى أحمد</td>
+                                    <td>عضو</td>
+                                    <td>التكنولوجيا الصيدلانية</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-section" id="pharmacy-goals">
+                        <h2><i class="fas fa-bullseye"></i> أهداف كلية الصيدلة</h2>
+                        <ul>
+                            <li>إعداد صيادلة مؤهلين علمياً وعملياً</li>
+                            <li>تعزيز البحث العلمي في مجال العلوم الصيدلانية</li>
+                            <li>تطوير المناهج الدراسية لتواكب التطورات الحديثة</li>
+                            <li>تعزيز التعاون مع المؤسسات الصحية والصناعية</li>
+                            <li>تنمية مهارات الطلاب في البحث والابتكار</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="pharmacy-admission">
+                        <h2><i class="fas fa-user-graduate"></i> أسس القبول في كلية الصيدلة</h2>
+                        <p>يشترط للقبول في كلية الصيدلة ما يلي:</p>
+                        <ul>
+                            <li>الحصول على شهادة الثانوية العامة (القسم العلمي) بمعدل لا يقل عن 85%</li>
+                            <li>اجتياز المقابلة الشخصية بنجاح</li>
+                            <li>اجتياز الاختبار التحصيلي في المواد العلمية</li>
+                            <li>إجادة اللغة الإنجليزية</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="pharmacy-curriculum">
+                        <h2><i class="fas fa-book"></i> المقرر العلمي لكلية الصيدلة</h2>
+                        <p>يشمل المقرر العلمي المواد التالية:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>السنة</th>
+                                    <th>المقررات الأساسية</th>
+                                    <th>المقررات الاختيارية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>الأولى</td>
+                                    <td>الكيمياء العامة، علم الأحياء، الفيزياء الطبية</td>
+                                    <td>مقدمة في الصيدلة، مصطلحات طبية</td>
+                                </tr>
+                                <tr>
+                                    <td>الثانية</td>
+                                    <td>الكيمياء العضوية، الكيمياء التحليلية، علم الأدوية</td>
+                                    <td>إحصاء حيوي، مهارات التواصل</td>
+                                </tr>
+                                <tr>
+                                    <td>الثالثة</td>
+                                    <td>الصيدلانيات، كيمياء الأدوية، علم السموم</td>
+                                    <td>إدارة الصيدليات، تاريخ الصيدلة</td>
+                                </tr>
+                                <tr>
+                                    <td>الرابعة</td>
+                                    <td>الصيدلة السريرية، ضبط جودة الأدوية</td>
+                                    <td>صيدلة المجتمع، التغذية العلاجية</td>
+                                </tr>
+                                <tr>
+                                    <td>الخامسة</td>
+                                    <td>تدريب عملي، مشروع التخرج</td>
+                                    <td>أخلاقيات المهنة، ريادة الأعمال</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الهندسة المعلوماتية -->
+            <div class="department-card" onclick="toggleDepartment('it')">
+                <div class="department-header">
+                    <i class="fas fa-laptop-code department-icon"></i>
+                    <span>هندسة معلوماتية</span>
+                </div>
+                <div class="department-content" id="it-content">
+                    <div class="content-nav">
+                        <div class="content-nav-button active" onclick="showContent(event, 'it-plan')">الخطة الدراسية
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'it-about')">نبذة عن القسم</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'it-council')">مجلس القسم</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'it-goals')">أهداف القسم</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'it-admission')">أسس القبول</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'it-curriculum')">المقرر العلمي
+                        </div>
+                    </div>
+
+                    <div class="content-section active" id="it-plan">
+                        <h2><i class="fas fa-calendar-alt"></i> الخطة الدراسية للهندسة المعلوماتية</h2>
+                        <p>تمتد الدراسة في قسم الهندسة المعلوماتية لمدة أربع سنوات مقسمة على ثمانية فصول دراسية. تشمل
+                            الخطة الدراسية المواد التالية:</p>
+                        <ul>
+                            <li>برمجة الحاسوب</li>
+                            <li>هياكل البيانات والخوارزميات</li>
+                            <li>قواعد البيانات</li>
+                            <li>شبكات الحاسوب</li>
+                            <li>الذكاء الاصطناعي</li>
+                        </ul>
+                        <p>يشمل البرنامج مشروع تخرج في السنة الأخيرة يتضمن تطبيق عملي للمهارات المكتسبة.</p>
+                    </div>
+
+                    <div class="content-section" id="it-about">
+                        <h2><i class="fas fa-info-circle"></i> نبذة عن قسم الهندسة المعلوماتية</h2>
+                        <p>تأسس قسم الهندسة المعلوماتية عام 2003 بهدف تخريج مهندسين معلوماتيين قادرين على تصميم وتطوير
+                            الأنظمة البرمجية. يضم القسم نخبة من الأساتذة المتخصصين في مختلف مجالات تكنولوجيا المعلومات.
+                        </p>
+                        <p>يتميز القسم بمعامل حاسوب حديثة مجهزة بأحدث البرمجيات والأجهزة، وشراكات مع شركات تقنية رائدة
+                            لتوفير فرص تدريب للطلاب.</p>
+                    </div>
+
+                    <div class="content-section" id="it-council">
+                        <h2><i class="fas fa-users"></i> مجلس قسم الهندسة المعلوماتية</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>المنصب</th>
+                                    <th>التخصص</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>أ.د. محمد علي حسين</td>
+                                    <td>رئيس القسم</td>
+                                    <td>الذكاء الاصطناعي</td>
+                                </tr>
+                                <tr>
+                                    <td>د. أحمد خالد</td>
+                                    <td>نائب رئيس القسم</td>
+                                    <td>شبكات الحاسوب</td>
+                                </tr>
+                                <tr>
+                                    <td>د. سارة محمد</td>
+                                    <td>عضو</td>
+                                    <td>أمن المعلومات</td>
+                                </tr>
+                                <tr>
+                                    <td>د. يوسف عبد الله</td>
+                                    <td>عضو</td>
+                                    <td>هندسة البرمجيات</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-section" id="it-goals">
+                        <h2><i class="fas fa-bullseye"></i> أهداف قسم الهندسة المعلوماتية</h2>
+                        <ul>
+                            <li>إعداد مهندسين معلوماتيين مؤهلين لسوق العمل</li>
+                            <li>تعزيز البحث العلمي في مجال تكنولوجيا المعلومات</li>
+                            <li>تطوير المناهج لتواكب التطورات التكنولوجية</li>
+                            <li>تعزيز التعاون مع الشركات التقنية</li>
+                            <li>تنمية مهارات الابتكار وريادة الأعمال لدى الطلاب</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="it-admission">
+                        <h2><i class="fas fa-user-graduate"></i> أسس القبول في قسم الهندسة المعلوماتية</h2>
+                        <p>يشترط للقبول في قسم الهندسة المعلوماتية ما يلي:</p>
+                        <ul>
+                            <li>الحصول على شهادة الثانوية العامة (القسم العلمي) بمعدل لا يقل عن 80%</li>
+                            <li>اجتياز اختبار القدرات في الرياضيات والمنطق</li>
+                            <li>مهارات أساسية في استخدام الحاسوب</li>
+                            <li>إجادة اللغة الإنجليزية</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="it-curriculum">
+                        <h2><i class="fas fa-book"></i> المقرر العلمي للهندسة المعلوماتية</h2>
+                        <p>يشمل المقرر العلمي المواد التالية:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>السنة</th>
+                                    <th>المقررات الأساسية</th>
+                                    <th>المقررات الاختيارية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>الأولى</td>
+                                    <td>أساسيات البرمجة، الرياضيات الهندسية</td>
+                                    <td>مقدمة في الحاسوب، مهارات تقنية</td>
+                                </tr>
+                                <tr>
+                                    <td>الثانية</td>
+                                    <td>هياكل البيانات، قواعد البيانات</td>
+                                    <td>البرمجة الويبية، أنظمة التشغيل</td>
+                                </tr>
+                                <tr>
+                                    <td>الثالثة</td>
+                                    <td>شبكات الحاسوب، هندسة البرمجيات</td>
+                                    <td>الذكاء الاصطناعي، أمن المعلومات</td>
+                                </tr>
+                                <tr>
+                                    <td>الرابعة</td>
+                                    <td>تطبيقات الذكاء الاصطناعي، مشروع التخرج</td>
+                                    <td>إدارة المشاريع، ريادة الأعمال</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم هندسة العمارة -->
+            <div class="department-card" onclick="toggleDepartment('architecture')">
+                <div class="department-header">
+                    <i class="fas fa-archway department-icon"></i>
+                    <span>هندسة عمارة</span>
+                </div>
+                <div class="department-content" id="architecture-content">
+                    <div class="content-nav">
+                        <div class="content-nav-button active" onclick="showContent(event, 'architecture-plan')">الخطة
+                            الدراسية</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'architecture-about')">نبذة عن القسم
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'architecture-council')">مجلس القسم
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'architecture-goals')">أهداف القسم
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'architecture-admission')">أسس
+                            القبول</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'architecture-curriculum')">المقرر
+                            العلمي</div>
+                    </div>
+
+                    <div class="content-section active" id="architecture-plan">
+                        <h2><i class="fas fa-calendar-alt"></i> الخطة الدراسية لهندسة العمارة</h2>
+                        <p>تمتد الدراسة في قسم هندسة العمارة لمدة خمس سنوات مقسمة على عشرة فصول دراسية. تشمل الخطة
+                            الدراسية المواد التالية:</p>
+                        <ul>
+                            <li>التصميم المعماري</li>
+                            <li>تاريخ العمارة</li>
+                            <li>مواد البناء وتقنياته</li>
+                            <li>التخطيط العمراني</li>
+                            <li>الإنشاءات المعمارية</li>
+                        </ul>
+                        <p>يشمل البرنامج ورش عمل تصميمية مستمرة ومشروع تخرج في السنة الأخيرة.</p>
+                    </div>
+
+                    <div class="content-section" id="architecture-about">
+                        <h2><i class="fas fa-info-circle"></i> نبذة عن قسم هندسة العمارة</h2>
+                        <p>تأسس قسم هندسة العمارة عام 1998 بهدف تخريج مهندسين معماريين مبدعين قادرين على تصميم فراغات
+                            عمرانية تلبي احتياجات المجتمع. يضم القسم نخبة من الأساتذة المعماريين ذوي الخبرة الأكاديمية
+                            والمهنية.</p>
+                        <p>يتميز القسم باستوديوهات تصميم مجهزة وورش عمل متخصصة، وشراكات مع مكاتب هندسية رائدة لتوفير فرص
+                            تدريب للطلاب.</p>
+                    </div>
+
+                    <div class="content-section" id="architecture-council">
+                        <h2><i class="fas fa-users"></i> مجلس قسم هندسة العمارة</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>المنصب</th>
+                                    <th>التخصص</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>أ.د. ليلى أحمد عبد الله</td>
+                                    <td>رئيس القسم</td>
+                                    <td>التصميم المعماري</td>
+                                </tr>
+                                <tr>
+                                    <td>د. عمر خالد</td>
+                                    <td>نائب رئيس القسم</td>
+                                    <td>التخطيط العمراني</td>
+                                </tr>
+                                <tr>
+                                    <td>د. نادية محمد</td>
+                                    <td>عضو</td>
+                                    <td>تاريخ العمارة</td>
+                                </tr>
+                                <tr>
+                                    <td>د. وائل سمير</td>
+                                    <td>عضو</td>
+                                    <td>الإنشاءات المعمارية</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-section" id="architecture-goals">
+                        <h2><i class="fas fa-bullseye"></i> أهداف قسم هندسة العمارة</h2>
+                        <ul>
+                            <li>إعداد مهندسين معماريين مبدعين</li>
+                            <li>تعزيز البحث العلمي في مجال العمارة والتخطيط</li>
+                            <li>ربط المناهج الأكاديمية بمتطلبات سوق العمل</li>
+                            <li>تعزيز التعاون مع المكاتب الهندسية</li>
+                            <li>تنمية الوعي بالهوية المعمارية والبيئة المستدامة</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="architecture-admission">
+                        <h2><i class="fas fa-user-graduate"></i> أسس القبول في قسم هندسة العمارة</h2>
+                        <p>يشترط للقبول في قسم هندسة العمارة ما يلي:</p>
+                        <ul>
+                            <li>الحصول على شهادة الثانوية العامة (القسم العلمي) بمعدل لا يقل عن 75%</li>
+                            <li>اجتياز اختبار القدرات الإبداعية والرسم</li>
+                            <li>مهارات أساسية في الرسم والتصميم</li>
+                            <li>إجادة اللغة الإنجليزية</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="architecture-curriculum">
+                        <h2><i class="fas fa-book"></i> المقرر العلمي لهندسة العمارة</h2>
+                        <p>يشمل المقرر العلمي المواد التالية:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>السنة</th>
+                                    <th>المقررات الأساسية</th>
+                                    <th>المقررات الاختيارية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>الأولى</td>
+                                    <td>أساسيات التصميم، الرسم المعماري</td>
+                                    <td>تاريخ الفن، مبادئ البناء</td>
+                                </tr>
+                                <tr>
+                                    <td>الثانية</td>
+                                    <td>تصميم معماري (1)، مواد البناء</td>
+                                    <td>النظرية المعمارية، التصوير الفوتوغرافي</td>
+                                </tr>
+                                <tr>
+                                    <td>الثالثة</td>
+                                    <td>تصميم معماري (2)، الإنشاءات المعمارية</td>
+                                    <td>العمارة المستدامة، الحاسوب في العمارة</td>
+                                </tr>
+                                <tr>
+                                    <td>الرابعة</td>
+                                    <td>التخطيط العمراني، تصميم معماري متقدم</td>
+                                    <td>إدارة المشاريع، العمارة الداخلية</td>
+                                </tr>
+                                <tr>
+                                    <td>الخامسة</td>
+                                    <td>مشروع التخرج، التدريب الميداني</td>
+                                    <td>عمارة التراث، تقنيات العرض</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم العلوم الإدارية -->
+            <div class="department-card" onclick="toggleDepartment('management')">
+                <div class="department-header">
+                    <i class="fas fa-chart-line department-icon"></i>
+                    <span>علوم إدارية</span>
+                </div>
+                <div class="department-content" id="management-content">
+                    <div class="content-nav">
+                        <div class="content-nav-button active" onclick="showContent(event, 'management-plan')">الخطة
+                            الدراسية</div>
+                        <div class="content-nav-button" onclick="showContent(event, 'management-about')">نبذة عن القسم
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'management-council')">مجلس القسم
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'management-goals')">أهداف القسم
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'management-admission')">أسس القبول
+                        </div>
+                        <div class="content-nav-button" onclick="showContent(event, 'management-curriculum')">المقرر
+                            العلمي</div>
+                    </div>
+
+                    <div class="content-section active" id="management-plan">
+                        <h2><i class="fas fa-calendar-alt"></i> الخطة الدراسية للعلوم الإدارية</h2>
+                        <p>تمتد الدراسة في قسم العلوم الإدارية لمدة أربع سنوات مقسمة على ثمانية فصول دراسية. تشمل الخطة
+                            الدراسية المواد التالية:</p>
+                        <ul>
+                            <li>مبادئ الإدارة</li>
+                            <li>المحاسبة المالية</li>
+                            <li>إدارة الموارد البشرية</li>
+                            <li>التسويق</li>
+                            <li>الإدارة الاستراتيجية</li>
+                        </ul>
+                        <p>يشمل البرنامج تدريباً عملياً في مؤسسات الأعمال خلال السنة الأخيرة.</p>
+                    </div>
+
+                    <div class="content-section" id="management-about">
+                        <h2><i class="fas fa-info-circle"></i> نبذة عن قسم العلوم الإدارية</h2>
+                        <p>تأسس قسم العلوم الإدارية عام 2000 بهدف إعداد كوادر إدارية مؤهلة قادرة على قيادة المؤسسات
+                            بكفاءة. يضم القسم نخبة من الأساتذة المتخصصين في مختلف مجالات الإدارة والأعمال.</p>
+                        <p>يتميز القسم بعلاقات وثيقة مع قطاع الأعمال، ويوفر فرص تدريب وتوظيف لخريجيه في مؤسسات رائدة.
+                        </p>
+                    </div>
+
+                    <div class="content-section" id="management-council">
+                        <h2><i class="fas fa-users"></i> مجلس قسم العلوم الإدارية</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>المنصب</th>
+                                    <th>التخصص</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>أ.د. سامي رجب</td>
+                                    <td>رئيس القسم</td>
+                                    <td>الإدارة الاستراتيجية</td>
+                                </tr>
+                                <tr>
+                                    <td>د. هبة نور الدين</td>
+                                    <td>نائب رئيس القسم</td>
+                                    <td>إدارة الموارد البشرية</td>
+                                </tr>
+                                <tr>
+                                    <td>د. وليد عبد الحميد</td>
+                                    <td>عضو</td>
+                                    <td>التسويق</td>
+                                </tr>
+                                <tr>
+                                    <td>د. منى فاروق</td>
+                                    <td>عضو</td>
+                                    <td>المحاسبة</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-section" id="management-goals">
+                        <h2><i class="fas fa-bullseye"></i> أهداف قسم العلوم الإدارية</h2>
+                        <ul>
+                            <li>إعداد كوادر إدارية مؤهلة لسوق العمل</li>
+                            <li>تعزيز البحث العلمي في مجال الإدارة والأعمال</li>
+                            <li>تطوير المناهج لتواكب التطورات في عالم الأعمال</li>
+                            <li>تعزيز التعاون مع قطاع الأعمال</li>
+                            <li>تنمية مهارات القيادة وريادة الأعمال</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="management-admission">
+                        <h2><i class="fas fa-user-graduate"></i> أسس القبول في قسم العلوم الإدارية</h2>
+                        <p>يشترط للقبول في قسم العلوم الإدارية ما يلي:</p>
+                        <ul>
+                            <li>الحصول على شهادة الثانوية العامة بمعدل لا يقل عن 70%</li>
+                            <li>اجتياز المقابلة الشخصية بنجاح</li>
+                            <li>مهارات تواصل جيدة</li>
+                            <li>إجادة اللغة الإنجليزية</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" id="management-curriculum">
+                        <h2><i class="fas fa-book"></i> المقرر العلمي للعلوم الإدارية</h2>
+                        <p>يشمل المقرر العلمي المواد التالية:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>السنة</th>
+                                    <th>المقررات الأساسية</th>
+                                    <th>المقررات الاختيارية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>الأولى</td>
+                                    <td>مبادئ الإدارة، مبادئ المحاسبة</td>
+                                    <td>مقدمة في الاقتصاد، مهارات الحاسوب</td>
+                                </tr>
+                                <tr>
+                                    <td>الثانية</td>
+                                    <td>إدارة الموارد البشرية، المحاسبة الإدارية</td>
+                                    <td>السلوك التنظيمي، الإحصاء</td>
+                                </tr>
+                                <tr>
+                                    <td>الثالثة</td>
+                                    <td>التسويق، الإدارة المالية</td>
+                                    <td>إدارة العمليات، نظم المعلومات</td>
+                                </tr>
+                                <tr>
+                                    <td>الرابعة</td>
+                                    <td>الإدارة الاستراتيجية، التدريب الميداني</td>
+                                    <td>ريادة الأعمال، إدارة الجودة</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;">
+            <a href="#" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-envelope"></i> البريد الإلكتروني
+            </a>
+            <a href="#" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-phone"></i> اتصل بنا
+            </a>
+            <a href="#" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-map-marker-alt"></i> الموقع
+            </a>
+        </div>
+        <p>جميع الحقوق محفوظة &copy; 2025 جامعتنا العريقة</p>
+        <div style="margin-top: 15px;">
+            <a href="#" style="color: white; margin: 0 10px; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: white; margin: 0 10px; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color: white; margin: 0 10px; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: white; margin: 0 10px; font-size: 20px;"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // عرض/إخفاء محتوى القسم عند النقر عليه
+        function toggleDepartment(departmentId) {
+            // إغلاق جميع الأقسام أولاً
+            document.querySelectorAll('.department-content').forEach(content => {
+                content.style.maxHeight = '0';
+                content.style.padding = '0';
+                content.parentElement.classList.remove('active');
+            });
+
+            // فتح القسم المحدد إذا لم يكن مفتوحاً بالفعل
+            const content = document.getElementById(departmentId + '-content');
+            const card = content.parentElement;
+
+            if (!card.classList.contains('active')) {
+                card.classList.add('active');
+                content.style.maxHeight = '1000px';
+                content.style.padding = '20px';
+
+                // إظهار المحتوى الأول (الخطة الدراسية) تلقائياً
+                const firstNavButton = content.querySelector('.content-nav-button');
+                if (firstNavButton) {
+                    const contentId = firstNavButton.getAttribute('onclick').split("'")[1];
+                    showContent(null, contentId);
+                }
+            }
+        }
+
+        // عرض المحتوى المحدد عند النقر على زر التنقل
+        function showContent(event, contentId) {
+            if (event) {
+                event.stopPropagation(); // منع انتشار الحدث إلى العنصر الأب
+
+                // إزالة التنشيط من جميع الأزرار في نفس مجموعة التنقل
+                const navButtons = event.target.parentElement.querySelectorAll('.content-nav-button');
+                navButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // تنشيط الزر الحالي
+                event.target.classList.add('active');
+            }
+
+            // إخفاء جميع أقسام المحتوى في نفس القسم
+            const contentSections = document.querySelectorAll(`#${contentId.split('-')[0]}-content .content-section`);
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إظهار قسم المحتوى المحدد
+            document.getElementById(contentId).classList.add('active');
+        }
+
+        // فتح أول قسم تلقائياً عند تحميل الصفحة
+        window.onload = function () {
+            toggleDepartment('pharmacy');
+        };
+    </script>
+</body>
+
+</html>

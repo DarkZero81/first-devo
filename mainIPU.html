@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPU</title>
+    <link rel="stylesheet" href="IPUPRO.css">
+</head>
+
+</head>
+
+<body>
+    <!-- شاشة التحميل -->
+    <div class="loading-screen">
+        <div id="wifi-loader">
+            <svg class="circle-outer" viewBox="0 0 86 86">
+                <circle class="back" cx="43" cy="43" r="40"></circle>
+                <circle class="front" cx="43" cy="43" r="40"></circle>
+                <circle class="new" cx="43" cy="43" r="40"></circle>
+            </svg>
+            <svg class="circle-middle" viewBox="0 0 60 60">
+                <circle class="back" cx="30" cy="30" r="27"></circle>
+                <circle class="front" cx="30" cy="30" r="27"></circle>
+            </svg>
+            <svg class="circle-inner" viewBox="0 0 34 34">
+                <circle class="back" cx="17" cy="17" r="14"></circle>
+                <circle class="front" cx="17" cy="17" r="14"></circle>
+            </svg>
+            <div class="text" data-text="جاري التحميل"></div>
+        </div>
+    </div>
+
+    <!-- محتوى الصفحة الرئيسية -->
+    <div class="content">
+        <!-- محتوى صفحتك هنا -->
+        <h1>مرحباً بك في موقعنا</h1>
+        <p>هذا هو المحتوى الرئيسي للصفحة</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // عرض شاشة التحميل لمدة 5 ثواني ثم إخفاؤها
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.querySelector('.loading-screen').style.opacity = '0';
+                setTimeout(function () {
+                    document.querySelector('.loading-screen').style.display = 'none';
+                    document.querySelector('.content').style.display = 'block';
+                }, 500); // الانتظار نصف ثانية لإنهاء تأثير التلاشي
+            }, 5000); // 5000 ميلي ثانية = 5 ثواني
+        });
+    </script>
+</body>
+
+</html>
+
+<body>
+
+</body>
+
+</html>
